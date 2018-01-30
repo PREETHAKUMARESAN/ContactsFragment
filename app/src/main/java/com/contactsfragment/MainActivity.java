@@ -4,24 +4,21 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import layout.Contacts_List;
-
 public class MainActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
 
     ListView lw;
+    CustomContactAdapter adapter;
     Button b1,b2,b3,b4,b5;
 
     @Override
@@ -34,6 +31,7 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
         b3=(Button)findViewById(R.id.button_3);
         b4=(Button)findViewById(R.id.button_4);
         b5=(Button)findViewById(R.id.button_5);
+        lw=(ListView)findViewById(R.id.list);
 
         getSupportLoaderManager().initLoader(1,null,this);
     }
@@ -60,33 +58,40 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
     Holder holder;
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
-        Fragment myFragment;
-        myFragment=new Contacts_List();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        holder = new Holder();
-        holder.tvCOntactName = (TextView)findViewById(R.id.tvContactName);
-        holder.tvContactNumber = (TextView)findViewById(R.id.tvContactNumber);
-        holder.ivContactImage = (ImageView)findViewById(R.id.ivContactImage);
-
-
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
+        adapter = new CustomContactAdapter(this, cursor);
 
-            holder.tvCOntactName.setText(cursor.getString(cursor
-                    .getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
-            holder.tvContactNumber.setText(cursor.getString(cursor
-                    .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lw.setAdapter(adapter);
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lw.setAdapter(adapter);
+            }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lw.setAdapter(adapter);
+            }
+        });
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lw.setAdapter(adapter);
+            }
+        });
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lw.setAdapter(adapter);
+            }
+        });
 
-
-        }
-
-        fragmentTransaction.add(R.id.frag, myFragment);
-        fragmentTransaction.replace(R.id.frag,myFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
 
 
     }

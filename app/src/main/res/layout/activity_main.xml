@@ -21,12 +21,19 @@
 
 
 
-    <fragment
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="20"
-        android:name="layout.Contacts_List"
-        android:id="@+id/frag"/>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_weight="30"
+        android:layout_height="470dp">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="450dp"
+            android:id="@+id/list">
+
+        </ListView>
+
+    </ScrollView>
 
 
 
